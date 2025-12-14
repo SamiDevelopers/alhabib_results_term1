@@ -383,32 +383,56 @@
             }
         });
 
-        function calculateResults(grades) {
-            const total = grades.liturgy + grades.hymns + grades.coptic + grades.memorized;
-            const percentage = Math.round((total / 400) * 100);
-            
-            let status, statusClass, currentStatus;
-            
-            if (percentage >= 85) {
-                status = 'ممتاز';
-                statusClass = 'grade-excellent';
-                currentStatus = 'مؤهل للانتقال للدراسة بالترم الثاني بتفوق';
-            } else if (percentage >= 75) {
-                status = 'جيد جداً';
-                statusClass = 'grade-good';
-                currentStatus = 'مؤهل للانتقال للدراسة بالترم الثاني بنجاح';
-            } else if (percentage >= 60) {
-                status = 'ناجح';
-                statusClass = 'grade-pass';
-                currentStatus = 'مؤهل للانتقال للدراسة بالترم الثاني بنجاح';
-            } else {
-                status = 'راسب';
-                statusClass = 'grade-fail';
-                currentStatus = 'يحتاج مراجعة خدام المركز للتأكد من امكانية دخول امتحان التخلفات بعد تحديد الموعد';
-            }
-            
-            return { total, percentage, status, statusClass, currentStatus };
+function calculateResults(grades) {
+    const total = grades.liturgy + grades.hymns + grades.coptic + grades.memorized;
+    const percentage = Math.round((total / 400) * 100);
+
+    // فحص المواد اللي أقل من 50
+    const failedSubjects = [];
+
+    if (grades.liturgy < 50) failedSubjects.push('الطقوس الكنسية');
+    if (grades.hymns < 50) failedSubjects.push('الألحان والتسبحة');
+    if (grades.coptic < 50) failedSubjects.push('اللغة القبطية');
+    if (grades.memorized < 50) failedSubjects.push('المحفوظات والأجبية');
+
+    let status, statusClass, currentStatus;
+
+    // 🔴 لو في مادة أقل من 50
+    if (failedSubjects.length > 0) {
+        status = 'يحتاج إلى مراجعة';
+        statusClass = 'grade-fail';
+        currentStatus =
+            `يحتاج إلى الدخول امتحان التخلفات في المواد التالية: ${failedSubjects.join('، ')}`;
+
+    } else {
+        // 🟢 الحالة الطبيعية
+        if (percentage >= 85) {
+            status = 'ممتاز';
+            statusClass = 'grade-excellent';
+            currentStatus = 'مؤهل للانتقال للدراسة بالترم الثاني بتفوق';
+        } else if (percentage >= 75) {
+            status = 'جيد جداً';
+            statusClass = 'grade-good';
+            currentStatus = 'مؤهل للانتقال للدراسة بالترم الثاني بنجاح';
+        } else if (percentage >= 60) {
+            status = 'ناجح';
+            statusClass = 'grade-pass';
+            currentStatus = 'مؤهل للانتقال للدراسة بالترم الثاني بنجاح';
+        } else {
+            status = 'راسب';
+            statusClass = 'grade-fail';
+            currentStatus = 'يحتاج مراجعة خدام المركز للتأكد من امكانية دخول امتحان التخلفات بعد تحديد الموعد';
         }
+    }
+
+    return {
+        total,
+        percentage,
+        status,
+        statusClass,
+        currentStatus
+    };
+}
 
         function displayResults(student) {
             const results = calculateResults(student.grades);
