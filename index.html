@@ -392,19 +392,19 @@
             if (percentage >= 85) {
                 status = 'ممتاز';
                 statusClass = 'grade-excellent';
-                currentStatus = 'مؤهل للانتقال للمستوى التالي بتفوق';
+                currentStatus = 'مؤهل للانتقال للدراسة بالترم الثاني بتفوق';
             } else if (percentage >= 75) {
                 status = 'جيد جداً';
                 statusClass = 'grade-good';
-                currentStatus = 'مؤهل للانتقال للمستوى التالي';
+                currentStatus = 'مؤهل للانتقال للدراسة بالترم الثاني بنجاح';
             } else if (percentage >= 60) {
                 status = 'ناجح';
                 statusClass = 'grade-pass';
-                currentStatus = 'مؤهل للانتقال للمستوى التالي';
+                currentStatus = 'مؤهل للانتقال للدراسة بالترم الثاني بنجاح';
             } else {
                 status = 'راسب';
                 statusClass = 'grade-fail';
-                currentStatus = 'يحتاج لإعادة دراسة بعض المواد ومراجعة خدام المركز';
+                currentStatus = 'يحتاج مراجعة خدام المركز للتأكد من امكانية دخول امتحان التخلفات بعد تحديد الموعد';
             }
             
             return { total, percentage, status, statusClass, currentStatus };
