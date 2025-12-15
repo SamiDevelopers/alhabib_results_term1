@@ -410,17 +410,17 @@ function calculateResults(grades) {
             status = 'ممتاز';
             statusClass = 'grade-excellent';
             currentStatus = 'مؤهل للانتقال للدراسة بالترم الثاني بتفوق';
-            currentStatus = 'يبدأ الترم الثاني - الجمعة 31 يناير 2026';
+            const term2Info = 'يبدأ الترم الثاني - الجمعة 31 يناير 2026';
         } else if (percentage >= 75) {
             status = 'جيد جداً';
             statusClass = 'grade-good';
-            currentStatus = 'مؤهل للانتقال للدراسة بالترم الثاني بنجاح';
-            currentStatus = 'يبدأ الترم الثاني - الجمعة 31 يناير 2026';
+            currentStatus = 'مؤهل للانتقال للدراسة بالترم الثاني بتفوق';
+            const term2Info = 'يبدأ الترم الثاني - الجمعة 31 يناير 2026';
         } else if (percentage >= 60) {
             status = 'ناجح';
             statusClass = 'grade-pass';
-            currentStatus = 'مؤهل للانتقال للدراسة بالترم الثاني بنجاح';
-            currentStatus = 'يبدأ الترم الثاني - الجمعة 31 يناير 2026';
+            currentStatus = 'مؤهل للانتقال للدراسة بالترم الثاني بتفوق';
+            const term2Info = 'يبدأ الترم الثاني - الجمعة 31 يناير 2026';
         } else {
             status = 'راسب';
             statusClass = 'grade-fail';
